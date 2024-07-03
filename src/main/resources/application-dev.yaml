@@ -1,0 +1,23 @@
+rest-cars-api:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:rent_cars_db;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    username: rent_cars
+    password: rent_cars
+    hikari:
+      maximum-pool-size: 1
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  springdoc:
+    swagger-ui:
+      enabled: true
+  openapi-servers-urls: http://localhost:${server.port}${server.servlet.context-path}

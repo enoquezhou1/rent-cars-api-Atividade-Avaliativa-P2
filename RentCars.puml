@@ -1,0 +1,163 @@
+@startuml
+
+class Carro {
+  +Long id
+  +String modelo
+  +String marca
+  +int ano
+  +CarroStatus status
+}
+
+class Cliente {
+  +Long id
+  +String nome
+  +String cpf
+  +String telefone
+}
+
+class Aluguel {
+  +Long id
+  +Date dataInicio
+  +Date dataFim
+  +double valor
+  +AluguelStatus status
+  +Carro carro
+  +Cliente cliente
+}
+
+enum CarroStatus {
+  DISPONIVEL
+  ALUGADO
+  MANUTENCAO
+}
+
+enum AluguelStatus {
+  PENDENTE
+  ATIVO
+  FINALIZADO
+}
+
+' Repositories
+interface CarroRepository {
+}
+
+interface ClienteRepository {
+}
+
+interface AluguelRepository{
+}
+
+' Services
+interface CarroService {
+  +Carro save(Carro carro)
+  +Carro findById(String id)
+  +List<Carro> findAll()
+  +void deleteById(String id)
+}
+
+class CarroServiceImpl {
+  +Carro save(Carro carro)
+  +Carro findById(String id)
+  +List<Carro> findAll()
+  +void deleteById(String id)
+  -CarroRepository carroRepository
+}
+
+interface ClienteService {
+  +Cliente save(Cliente cliente)
+  +Cliente findById(String id)
+  +List<Cliente> findAll()
+  +void deleteById(String id)
+}
+
+class ClienteServiceImpl {
+  +Cliente save(Cliente cliente)
+  +Cliente findById(String id)
+  +List<Cliente> findAll()
+  +void deleteById(String id)
+  -ClienteRepository clienteRepository
+}
+
+interface AluguelService {
+  +Aluguel save(Aluguel aluguel)
+  +Aluguel findById(String id)
+  +List<Aluguel> findAll()
+  +void deleteById(String id)
+}
+
+class AluguelServiceImpl {
+  +Aluguel save(Aluguel aluguel)
+  +Aluguel findById(String id)
+  +List<Aluguel> findAll()
+  +void deleteById(String id)
+  -AluguelRepository aluguelRepository
+}
+
+' Controllers
+interface CarroController {
+  +Carro save(Carro carro)
+  +Carro findById(String id)
+  +List<Carro> findAll()
+  +void deleteById(String id)
+}
+
+class CarroControllerImpl {
+  +Carro save(Carro carro)
+  +Carro findById(String id)
+  +List<Carro> findAll()
+  +void deleteById(String id)
+  -CarroService carroService
+}
+
+interface ClienteController {
+  +Cliente save(Cliente cliente)
+  +Cliente findById(String id)
+  +List<Cliente> findAll()
+  +void deleteById(String id)
+}
+
+class ClienteControllerImpl {
+  +Cliente save(Cliente cliente)
+  +Cliente findById(String id)
+  +List<Cliente> findAll()
+  +void deleteById(String id)
+  -ClienteService clienteService
+}
+
+interface AluguelController {
+  +Aluguel save(Aluguel aluguel)
+  +Aluguel findById(String id)
+  +List<Aluguel> findAll()
+  +void deleteById(String id)
+}
+
+class AluguelControllerImpl {
+  +Aluguel save(Aluguel aluguel)
+  +Aluguel findById(String id)
+  +List<Aluguel> findAll()
+  +void deleteById(String id)
+  -AluguelService aluguelService
+}
+
+CarroService <|.. CarroServiceImpl
+ClienteService <|.. ClienteServiceImpl
+AluguelService <|.. AluguelServiceImpl
+
+CarroController <|.. CarroControllerImpl
+ClienteController <|.. ClienteControllerImpl
+AluguelController <|.. AluguelControllerImpl
+
+CarroControllerImpl *-- CarroServiceImpl
+ClienteControllerImpl *-- ClienteServiceImpl
+AluguelControllerImpl *-- AluguelServiceImpl
+
+CarroServiceImpl *-- CarroRepository
+ClienteServiceImpl *-- ClienteRepository
+AluguelServiceImpl *-- AluguelRepository
+
+Carro *-- CarroStatus
+Aluguel *-- AluguelStatus
+Aluguel *-- Carro
+Aluguel *-- Cliente
+
+@enduml

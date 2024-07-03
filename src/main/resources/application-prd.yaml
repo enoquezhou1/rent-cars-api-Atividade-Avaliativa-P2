@@ -1,0 +1,26 @@
+rest-cars-api:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/rent_cars_db
+    username: rent_cars
+    password: rent_cars
+    hikari:
+      maximum-pool-size: 1
+  h2:
+    console:
+      enabled: false
+      path: /h2-console
+      settings:
+        web-allow-others: false
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  springdoc:
+    swagger-ui:
+      enabled: true
+  openapi-servers-urls: http://localhost:${server.port}${server.servlet.context-path}

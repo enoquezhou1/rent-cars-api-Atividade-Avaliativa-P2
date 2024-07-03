@@ -1,0 +1,48 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      force: true
+  shutdown: graceful
+spring:
+  application:
+    name: rest-cars-api
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: ${rest-cars-api.datasource.driver-class-name}
+    password: ${rest-cars-api.datasource.password}
+    username: ${rest-cars-api.datasource.username}
+    url: ${rest-cars-api.datasource.url}
+    hikari:
+      maximum-pool-size: ${rest-cars-api.datasource.hikari.maximum-pool-size}
+  web:
+    resources:
+      add-mappings: false
+  jpa:
+    open-in-view: ${rest-cars-api.jpa.open-in-view}
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: ${rest-cars-api.jpa.properties.hibernate.enable_lazy_load_no_trans}
+    hibernate:
+      ddl-auto: ${rest-cars-api.jpa.hibernate.ddl-auto}
+    show-sql: ${rest-cars-api.jpa.show-sql}
+  h2:
+    console:
+      enabled: ${rest-cars-api.h2.console.enabled}
+      path: ${rest-cars-api.h2.console.path}
+      settings:
+        web-allow-others: ${rest-cars-api.h2.console.settings.web-allow-others}
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    default-property-inclusion: non_null
+springdoc:
+  swagger-ui:
+    enabled: ${rest-cars-api.springdoc.swagger-ui.enabled}
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+
+openapi-servers-urls: ${rest-cars-api.openapi-servers-urls}
